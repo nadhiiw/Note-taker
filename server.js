@@ -6,11 +6,13 @@ const data = require('./db/db');
 
 const app = express();
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 7000;
 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(express.static('public'));
 
 
 
@@ -19,7 +21,7 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html
 
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html')));
 
-app.get('/api/newNotes', (req, res) => res.json(newNotes));
+// app.get('/api/newNotes', (req, res) => res.json(newNotes));
 
 app.route('/api/notes')
 .get(function (req, res){
@@ -30,16 +32,20 @@ app.route('/api/notes')
     let jsonFile = path.join(__dirname, "/db/db.json");
     let newNotes = req.body;
 
-    let highestID = 99;
+    //let highestID = 99;
+    let personID;
 
-    for(i=0; i < data.length; i++){
-        let personID = data[i];
+    personID = data.length;
 
-        if(personID > highestID){
-            highestID = personID;
-        }
-    }
-    newNotes.id = highestID +1;
+    // for(i=0; i < jsonFile.length; i++){
+        
+
+    //     if(personID > highestID){
+    //         highestID = personID;
+    //     }
+    // }
+    let id = personID ++;
+    newNotes.id = id.toString();
 
     data.push(newNotes);
 
@@ -53,7 +59,7 @@ app.route('/api/notes')
     res.json(newNotes);
 });
 
-app.delete('/api/notes', function (req, res){
+app.delete(`/api/notes/:id`, function (req, res){
     let jsonFile = path.join(__dirname,'/db/db.json');
 
     for(i=0; i < data.length; i++){
