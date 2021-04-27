@@ -2,5 +2,3 @@ An app that can be used to write, save, and delete notes. My first foray into us
 
 https://note-taker-i.herokuapp.com/
 
-
-Note-Taker.gif 
