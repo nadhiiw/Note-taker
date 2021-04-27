@@ -32,18 +32,11 @@ app.route('/api/notes')
     let jsonFile = path.join(__dirname, "/db/db.json");
     let newNotes = req.body;
 
-    //let highestID = 99;
+    
     let personID;
 
     personID = data.length;
 
-    // for(i=0; i < jsonFile.length; i++){
-        
-
-    //     if(personID > highestID){
-    //         highestID = personID;
-    //     }
-    // }
     let id = personID ++;
     newNotes.id = id.toString();
 
